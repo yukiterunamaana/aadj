@@ -5,7 +5,7 @@ class PostWidget extends StatelessWidget{
   final String title;
   final String body;
 
-  const PostWidget({required this.id, required this.title, required this.body});
+  const PostWidget({super.key, required this.id, required this.title, required this.body});
 
   @override
   Widget build(BuildContext context) => Padding(
@@ -20,7 +20,7 @@ class PostWidget extends StatelessWidget{
             padding: const EdgeInsets.all(20),
             child: SingleChildScrollView(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       '$id: $title',

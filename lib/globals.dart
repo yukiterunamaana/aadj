@@ -1,0 +1,1 @@
+String instance = 'mastodon.social';
