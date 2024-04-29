@@ -1,10 +1,11 @@
 import 'package:aadj/globals.dart';
 import 'package:aadj/state_preservation.dart';
+import 'package:aadj/widgets/post_view.dart';
 import 'package:flutter/material.dart';
 import 'package:mastodon_api/mastodon_api.dart';
 
-import 'account_view.dart';
-import 'bottom_nav_bar.dart';
+import 'widgets/account_view.dart';
+import 'widgets/bottom_nav_bar.dart';
 import 'key.dart';
 
 // Future<void> main() async {
@@ -59,14 +60,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        //colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const AccountPropertiesWidget(
-        accountId: '107967425890886119',
-      ),
-    );
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          //colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        // home: const AccountPropertiesWidget(
+        //   accountId: '107967425890886119',
+        // ),
+        home: const StatusWidget(
+          statusId: '112297768716346215',
+        ));
   }
 }

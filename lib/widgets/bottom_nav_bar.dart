@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:aadj/globals.dart';
 
-import 'infinite_scroll_pagination_page.dart';
+import '../infinite_scroll_pagination_page.dart';
 
 /// Flutter code sample for [BottomNavigationBar].
 ///
