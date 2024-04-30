@@ -68,31 +68,26 @@ class _StatusWidgetState extends State<StatusWidget> {
                     style: const TextStyle(fontSize: 16),
                   ),
 
-                  Html(
-                    data: status.content,
-                    style: {
-                      "body": Style(
-                        fontSize: FontSize(16),
-                      ),
-                    },
-                  ),
-
                   // Html(
                   //   data: status.content,
+                  //   style: {
+                  //     "body": Style(
+                  //       fontSize: FontSize(16),
+                  //     ),
+                  //   },
                   // ),
-                  //
 
                   // if (status.mediaAttachments.isNotEmpty)
                   //   Column(
                   //     children: status.mediaAttachments
                   //         .map((media) => Padding(
-                  //       padding: const EdgeInsets.only(top: 16),
-                  //       child: Image.network(
-                  //         media.url,
-                  //         width: double.infinity,
-                  //         fit: BoxFit.cover,
-                  //       ),
-                  //     ))
+                  //               padding: const EdgeInsets.only(top: 16),
+                  //               child: Image.network(
+                  //                 media.url,
+                  //                 width: double.infinity,
+                  //                 fit: BoxFit.cover,
+                  //               ),
+                  //             ))
                   //         .toList(),
                   //   ),
                 ],

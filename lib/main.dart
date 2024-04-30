@@ -1,4 +1,5 @@
 import 'package:aadj/globals.dart';
+import 'package:aadj/pages/home_page.dart';
 import 'package:aadj/state_preservation.dart';
 import 'package:aadj/widgets/post_view.dart';
 import 'package:flutter/material.dart';
@@ -59,17 +60,45 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          //colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
+    final mastodon = MastodonApi(
+      instance: instance,
+      bearerToken: key,
+
+      //! Automatic retry is available when server error or network error occurs
+      //! when communicating with the API.
+      retryConfig: RetryConfig(
+        maxAttempts: 5,
+        jitter: Jitter(
+          minInSeconds: 2,
+          maxInSeconds: 5,
         ),
-        // home: const AccountPropertiesWidget(
-        //   accountId: '107967425890886119',
-        // ),
-        home: const StatusWidget(
-          statusId: '112297768716346215',
-        ));
+        onExecute: (event) => print(
+          'Retry after ${event.intervalInSeconds} seconds... '
+          '[${event.retryCount} times]',
+        ),
+      ),
+
+      //! The default timeout is 10 seconds.
+      timeout: Duration(seconds: 20),
+    );
+
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        //colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+
+      home: StatusStream(
+        accountId: '107967425890886119',
+        mastodon: mastodon,
+        sinceId: '',
+      ),
+
+      //
+      // home: const StatusWidget(
+      //   statusId: '112351973799092648', //'112297768716346215',
+      // )
+    );
   }
 }
