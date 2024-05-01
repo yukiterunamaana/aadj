@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:aadj/globals.dart';
 
+import '../infinite_scroll_pagination_page.dart';
+
 /// Flutter code sample for [BottomNavigationBar].
 ///
 class BottomNavigationBarExampleApp extends StatelessWidget {
@@ -28,26 +30,30 @@ class _BottomNavigationBarExampleState
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: Search',
-      style: optionStyle,
-    ),
+    InfiniteScrollPaginationPage(),
+    InfiniteScrollPaginationPage(),
+    // Text(
+    //   'Index 0: Home',
+    //   style: optionStyle,
+    // ),
+    // Text(
+    //   'Index 1: Search',
+    //   style: optionStyle,
+    // ),
     Text(
       'Index 2: Editor',
       style: optionStyle,
     ),
-    Text(
-      'Index 3: Notifications',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 4: My account',
-      style: optionStyle,
-    ),
+    InfiniteScrollPaginationPage(),
+    InfiniteScrollPaginationPage(),
+    // Text(
+    //   'Index 3: Notifications',
+    //   style: optionStyle,
+    // ),
+    // Text(
+    //   'Index 4: My account',
+    //   style: optionStyle,
+    // ),
   ];
 
   void _onItemTapped(int index) {

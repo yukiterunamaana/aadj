@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'globals.dart';
+import 'infinite_scroll_pagination_page.dart';
 
 class PreservingBottomNavState extends StatefulWidget {
   const PreservingBottomNavState({Key? key}) : super(key: key);
@@ -14,20 +15,22 @@ class _PreservingBottomNavStateState extends State<PreservingBottomNavState> {
   int _selectedIndex = 0;
 
   static const List<Widget> _pages = <Widget>[
-    //todo home page reel
-    Center(
-      child: Icon(
-        Icons.home,
-        size: 150,
-      ),
-    ),
-    //todo search menu
-    Center(
-      child: Icon(
-        Icons.search,
-        size: 150,
-      ),
-    ),
+    InfiniteScrollPaginationPage(),
+    InfiniteScrollPaginationPage(),
+    // //todo home page reel
+    // Center(
+    //   child: Icon(
+    //     Icons.home,
+    //     size: 150,
+    //   ),
+    // ),
+    // //todo search menu
+    // Center(
+    //   child: Icon(
+    //     Icons.search,
+    //     size: 150,
+    //   ),
+    // ),
     //todo post constructor
     Center(
       child: Padding(
@@ -40,20 +43,22 @@ class _PreservingBottomNavStateState extends State<PreservingBottomNavState> {
         ),
       ),
     ),
-    //todo notifications reel
-    Center(
-      child: Icon(
-        Icons.notifications,
-        size: 150,
-      ),
-    ),
-    //todo account view
-    Center(
-      child: Icon(
-        Icons.account_circle,
-        size: 150,
-      ),
-    ),
+    InfiniteScrollPaginationPage(),
+    InfiniteScrollPaginationPage(),
+    // //todo notifications reel
+    // Center(
+    //   child: Icon(
+    //     Icons.notifications,
+    //     size: 150,
+    //   ),
+    // ),
+    // //todo account view
+    // Center(
+    //   child: Icon(
+    //     Icons.account_circle,
+    //     size: 150,
+    //   ),
+    // ),
   ];
 
   void _onItemTapped(int index) {
