@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:mastodon_api/mastodon_api.dart';
 
+import '../globals.dart';
+
 class FavoriteButton extends StatefulWidget {
   final MastodonApi mastodon;
   final String statusId;
-  final bool isFavorited;
+  final bool? isFavourited;
 
   FavoriteButton({
     super.key,
     required this.mastodon,
     required this.statusId,
-    required this.isFavorited,
+    required this.isFavourited,
   });
 
   @override
@@ -18,17 +20,17 @@ class FavoriteButton extends StatefulWidget {
 }
 
 class _FavoriteButtonState extends State<FavoriteButton> {
-  late bool _isFavorited;
+  late bool _isFavourited;
 
   @override
   void initState() {
     super.initState();
-    _isFavorited = widget.isFavorited;
+    _isFavourited = widget.isFavourited ?? false;
   }
 
   Future<void> _toggleFavorite() async {
     try {
-      if (_isFavorited) {
+      if (_isFavourited) {
         await widget.mastodon.v1.statuses
             .destroyFavourite(statusId: widget.statusId);
       } else {
@@ -36,7 +38,7 @@ class _FavoriteButtonState extends State<FavoriteButton> {
             .createFavourite(statusId: widget.statusId);
       }
       setState(() {
-        _isFavorited = !_isFavorited;
+        _isFavourited = !_isFavourited;
       });
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -48,10 +50,10 @@ class _FavoriteButtonState extends State<FavoriteButton> {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      icon: _isFavorited
+      icon: _isFavourited
           ? Icon(
               Icons.favorite,
-              color: Colors.red,
+              color: activatedReactionColor,
             )
           : Icon(Icons.favorite_border),
       onPressed: _toggleFavorite,

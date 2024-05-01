@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mastodon_api/mastodon_api.dart';
 
+import '../globals.dart';
+
 class ReblogButton extends StatefulWidget {
   final MastodonApi mastodon;
   final String statusId;
-  final bool isReblogged;
+  final bool? isReblogged;
 
   ReblogButton({
     super.key,
@@ -23,7 +25,7 @@ class _ReblogButtonState extends State<ReblogButton> {
   @override
   void initState() {
     super.initState();
-    _isReblogged = widget.isReblogged;
+    _isReblogged = widget.isReblogged ?? false;
   }
 
   Future<void> _toggleReblog() async {
@@ -51,7 +53,7 @@ class _ReblogButtonState extends State<ReblogButton> {
       icon: _isReblogged
           ? Icon(
               Icons.repeat,
-              color: Colors.blue,
+              color: activatedReactionColor,
             )
           : Icon(Icons.repeat_outlined),
       onPressed: _toggleReblog,

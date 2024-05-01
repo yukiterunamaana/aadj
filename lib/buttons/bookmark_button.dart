@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mastodon_api/mastodon_api.dart';
 
+import '../globals.dart';
+
 class BookmarkButton extends StatefulWidget {
   final MastodonApi mastodon;
   final String statusId;
-  final bool isBookmarked;
+  final bool? isBookmarked;
 
   BookmarkButton({
     super.key,
@@ -23,7 +25,7 @@ class _BookmarkButtonState extends State<BookmarkButton> {
   @override
   void initState() {
     super.initState();
-    _isBookmarked = widget.isBookmarked;
+    _isBookmarked = widget.isBookmarked ?? false;
   }
 
   Future<void> _toggleBookmark() async {
@@ -51,7 +53,7 @@ class _BookmarkButtonState extends State<BookmarkButton> {
       icon: _isBookmarked
           ? Icon(
               Icons.bookmark,
-              color: Colors.blue,
+              color: activatedReactionColor,
             )
           : Icon(Icons.bookmark_outline),
       onPressed: _toggleBookmark,

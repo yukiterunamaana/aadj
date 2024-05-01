@@ -1,73 +1,73 @@
-import 'dart:async';
-import 'package:mastodon_api/mastodon_api.dart';
+import 'dart:convert';
+import 'package:aadj/widgets/post_view.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 import '../globals.dart';
 
-typedef StatusBuilder = Widget Function(BuildContext context, Status status);
 
-class StatusStream extends StatefulWidget {
-  final MastodonApi mastodon;
-  final String sinceId;
-  final StatusBuilder builder;
-
-  StatusStream({
-    required this.mastodon,
-    required this.sinceId,
-    required this.builder,
-    required String accountId,
-  });
+class HomePageWidget extends StatefulWidget {
+  const HomePageWidget({super.key});
 
   @override
-  _StatusStreamState createState() => _StatusStreamState();
+  HomePageWidgetState createState() => HomePageWidgetState();
 }
 
-class _StatusStreamState extends State<StatusStream> {
-  late StreamController<List<Status>> _statusController;
+class HomePageWidgetState extends State<HomePageWidget> {
+  final PagingController<int, StatusWidget> pagingController = PagingController(firstPageKey: 1);
 
   @override
-  void initState() {
+  void initState(){
     super.initState();
-    _statusController = StreamController<List<Status>>.broadcast();
-    _loadMore();
+    pagingController.addPageRequestListener((pageKey) {fetchPage(pageKey);});
   }
 
-  @override
-  void dispose() {
-    _statusController.close();
-    super.dispose();
-  }
-
-  Future<void> _loadMore() async {
+  Future<void> fetchPage(int pageKey) async {
     try {
-      final statuses = await widget.mastodon.v1.timelines.lookupHomeTimeline(
-        limit: postsPerRequest,
-      );
-      _statusController.sink.add(statuses as List<Status>);
-    } catch (e) {
-      print(e);
+      final response = await mstdn.v1.timelines.lookupHomeTimeline();
+      List responseList = response.data;
+      final postList = responseList.map((data) =>
+          StatusWidget(
+            statusId: data.id,
+          )).toList();
+      final isLastPage = postList.length < postsPerRequest;
+      if (isLastPage) {
+        pagingController.appendLastPage(postList);
+        debugPrint('Last page');
+      }
+      else{
+        final nextPageKey = pageKey + 1;
+        pagingController.appendPage(postList, nextPageKey);
+      }
+    }
+    catch (error){
+      debugPrint('error! $error');
+      pagingController.error=error;
     }
   }
 
   @override
-  Widget build(BuildContext context) {
-    return StreamBuilder<List<Status>>(
-      stream: _statusController.stream,
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          final statuses = snapshot.data;
-          return ListView.builder(
-            itemCount: statuses?.length,
-            itemBuilder: (context, index) {
-              return widget.builder(context, statuses![index]);
-            },
-          );
-        } else if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
-        } else {
-          return CircularProgressIndicator();
-        }
-      },
-    );
+  void dispose(){
+    pagingController.dispose();
+    super.dispose();
   }
+
+  @override
+  Widget build(BuildContext context) => Scaffold(
+    appBar: AppBar(title: const Text('trending'),),
+    body: RefreshIndicator(
+      onRefresh: ()=>Future.sync(pagingController.refresh),
+      child: PagedListView<int, StatusWidget>(
+        pagingController: pagingController,
+        builderDelegate: PagedChildBuilderDelegate<StatusWidget>(
+          animateTransitions: true,
+          itemBuilder: (context, item, index) => StatusWidget(
+            statusId: item.statusId,
+          ),
+        ),
+      ),
+    ),
+  );
 }
+
