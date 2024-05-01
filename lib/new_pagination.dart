@@ -1,23 +1,24 @@
 import 'dart:convert';
 
-import 'package:aadj/post.dart';
-import 'package:aadj/post_widget.dart';
+import 'package:aadj/example/post.dart';
+import 'package:aadj/example/post_widget.dart';
+import 'package:aadj/post_view.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
+import 'globals.dart';
 
-class InfiniteScrollPaginationPage extends StatefulWidget {
-  const InfiniteScrollPaginationPage({super.key});
+
+class HomePaginationWidget extends StatefulWidget {
+  const HomePaginationWidget({super.key});
 
   @override
-  InfiniteScrollPaginationPageState createState() => InfiniteScrollPaginationPageState();
+  HomePaginationWidgetState createState() => HomePaginationWidgetState();
 }
 
-class InfiniteScrollPaginationPageState extends State<InfiniteScrollPaginationPage> {
-  static const postsPerRequest = 20;
-
-  final PagingController<int, Post> pagingController = PagingController(firstPageKey: 1);
+class HomePaginationWidgetState extends State<HomePaginationWidget> {
+  final PagingController<int, StatusWidget> pagingController = PagingController(firstPageKey: 1);
 
   @override
   void initState(){
@@ -27,15 +28,11 @@ class InfiniteScrollPaginationPageState extends State<InfiniteScrollPaginationPa
 
   Future<void> fetchPage(int pageKey) async {
     try {
-      final response = await get
-        (Uri.parse(
-          'https://jsonplaceholder.typicode.com/posts?_page=$pageKey&_limit=$postsPerRequest'));
-      List responseList = json.decode(response.body);
+      final response = await mstdn.v1.timelines.lookupHomeTimeline();
+      List responseList = response.data;
       final postList = responseList.map((data) =>
-          Post(
-            id: data['id'],
-            title: data['title'],
-            body: data['body'],
+          StatusWidget(
+            statusId: data.id,
           )).toList();
       final isLastPage = postList.length < postsPerRequest;
       if (isLastPage) {
@@ -64,14 +61,12 @@ class InfiniteScrollPaginationPageState extends State<InfiniteScrollPaginationPa
     appBar: AppBar(title: const Text('trending'),),
     body: RefreshIndicator(
       onRefresh: ()=>Future.sync(pagingController.refresh),
-      child: PagedListView<int, Post>(
+      child: PagedListView<int, StatusWidget>(
         pagingController: pagingController,
-        builderDelegate: PagedChildBuilderDelegate<Post>(
+        builderDelegate: PagedChildBuilderDelegate<StatusWidget>(
           animateTransitions: true,
-          itemBuilder: (context, item, index) => PostWidget(
-            id: item.id,
-            title: item.title,
-            body: item.body
+          itemBuilder: (context, item, index) => StatusWidget(
+            statusId: item.statusId,
           ),
         ),
       ),
