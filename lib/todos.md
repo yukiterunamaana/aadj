@@ -41,3 +41,5 @@ cherries on top:
     advanced customization
     alternative icons
     gratitudes
+    markdown and latex support
+    emoji reactions
