@@ -3,16 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 import '../globals.dart';
+import '../widgets/notification_widget.dart';
 
-class HomePageWidget extends StatefulWidget {
-  const HomePageWidget({super.key});
+class NotificationPageWidget extends StatefulWidget {
+  const NotificationPageWidget({super.key});
 
   @override
-  HomePageWidgetState createState() => HomePageWidgetState();
+  NotificationPageWidgetState createState() => NotificationPageWidgetState();
 }
 
-class HomePageWidgetState extends State<HomePageWidget> {
-  final PagingController<int, StatusWidget> pagingController =
+class NotificationPageWidgetState extends State<NotificationPageWidget> {
+  final PagingController<int, NotificationWidget> pagingController =
       PagingController(firstPageKey: 1);
 
   @override
@@ -25,20 +26,19 @@ class HomePageWidgetState extends State<HomePageWidget> {
 
   Future<void> fetchPage(int pageKey) async {
     try {
-      final response = await mstdn.v1.timelines.lookupHomeTimeline();
+      final response = await mstdn.v1.notifications.lookupNotifications();
       List responseList = response.data;
-      final postList = responseList
-          .map((data) => StatusWidget(
-                statusId: data.id,
+      final notifList = responseList
+          .map((data) => NotificationWidget(
+                notificationId: data.id,
               ))
           .toList();
-      final isLastPage = postList.length < postsPerRequest;
+      final isLastPage = notifList.length < postsPerRequest;
       if (isLastPage) {
-        pagingController.appendLastPage(postList);
-        debugPrint('Last page');
+        pagingController.appendLastPage(notifList);
       } else {
         final nextPageKey = pageKey + 1;
-        pagingController.appendPage(postList, nextPageKey);
+        pagingController.appendPage(notifList, nextPageKey);
       }
     } catch (error) {
       debugPrint('error! $error');
@@ -59,14 +59,13 @@ class HomePageWidgetState extends State<HomePageWidget> {
         ),
         body: RefreshIndicator(
           onRefresh: () => Future.sync(pagingController.refresh),
-          child: PagedListView<int, StatusWidget>(
+          child: PagedListView<int, NotificationWidget>(
             pagingController: pagingController,
-            builderDelegate: PagedChildBuilderDelegate<StatusWidget>(
-              animateTransitions: true,
-              itemBuilder: (context, item, index) => StatusWidget(
-                statusId: item.statusId,
-              ),
-            ),
+            builderDelegate: PagedChildBuilderDelegate<NotificationWidget>(
+                animateTransitions: true,
+                itemBuilder: (context, item, index) => NotificationWidget(
+                      notificationId: item.notificationId,
+                    )),
           ),
         ),
       );

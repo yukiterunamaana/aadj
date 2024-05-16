@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:aadj/widgets/post_view.dart';
 import 'package:flutter/material.dart';
 import 'package:mastodon_api/mastodon_api.dart';
@@ -14,19 +16,29 @@ class MastodonPostView extends StatefulWidget {
 }
 
 class _MastodonPostViewState extends State<MastodonPostView> {
-  late Future<StatusContext> context;
+  //late Future<StatusContext> context;
 
   @override
   void initState() {
     super.initState();
-    context = _loadAncestorsAndReplies();
+    _loadAncestorsAndReplies();
   }
 
-  Future<StatusContext> _loadAncestorsAndReplies() async {
+  void _loadAncestorsAndReplies() async {
     try {
-      final response =
-          await mstdn.v1.statuses.lookupStatusContext(statusId: widget.statusId);
-      return response.data;
+      final response = await mstdn.v1.statuses
+          .lookupStatusContext(statusId: widget.statusId);
+      List<String> ancestors = [];
+      List<String> descendants = [];
+
+      for (Status s in response.data.ancestors) {
+        ancestors.add(s.id);
+      }
+      for (Status s in response.data.descendants) {
+        descendants.add(s.id);
+      }
+      print('Ancestors: $ancestors');
+      print('Descendants: $descendants');
     } on MastodonException catch (e) {
       print(e);
     }
@@ -34,9 +46,6 @@ class _MastodonPostViewState extends State<MastodonPostView> {
 
   @override
   Widget build(BuildContext context) {
-
-    final _ancestors = ;
-
     return Scaffold(
       appBar: AppBar(
         title: Text('Mastodon Post'),
@@ -44,50 +53,31 @@ class _MastodonPostViewState extends State<MastodonPostView> {
       body: ListView(
         children: [
           // Display the post
-          StatusWidget(key: widget.key, statusId: widget.statusId,),
-
-          // Display the ancestors
-          _ancestors.isEmpty
-              ? Container()
-              : Column(
-                  children: [
-                    Text('Ancestors:'),
-                    ..._ancestors.map((ancestor) => PostCard(post: ancestor)),
-                  ],
-                ),
-
-          // Display the replies
-          _replies.isEmpty
-              ? Container()
-              : Column(
-                  children: [
-                    Text('Replies:'),
-                    ..._replies.map((reply) => PostCard(post: reply)),
-                  ],
-                ),
+          StatusWidget(
+            key: widget.key,
+            statusId: widget.statusId,
+          ),
+          //
+          // // Display the ancestors
+          // _ancestors.isEmpty
+          //     ? Container()
+          //     : Column(
+          //         children: [
+          //           Text('Ancestors:'),
+          //           ..._ancestors.map((ancestor) => PostCard(post: ancestor)),
+          //         ],
+          //       ),
+          //
+          // // Display the replies
+          // _replies.isEmpty
+          //     ? Container()
+          //     : Column(
+          //         children: [
+          //           Text('Replies:'),
+          //           ..._replies.map((reply) => PostCard(post: reply)),
+          //         ],
+          //       ),
         ],
-      ),
-    );
-  }
-}
-
-class PostCard extends StatelessWidget {
-  final Post post;
-
-  PostCard({required this.post});
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(post.account.username),
-            Text(post.content),
-          ],
-        ),
       ),
     );
   }

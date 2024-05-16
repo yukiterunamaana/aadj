@@ -1,7 +1,5 @@
 import 'package:aadj/globals.dart';
-import 'package:aadj/key.dart';
 import 'package:aadj/widgets/post_bottom_bar.dart';
-//import 'package:any_link_preview/any_link_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:mastodon_api/mastodon_api.dart';
@@ -28,7 +26,7 @@ class _StatusWidgetState extends State<StatusWidget> {
     try {
       final response =
           await mstdn.v1.statuses.lookupStatus(statusId: widget.statusId);
-      print(response.data.toString());
+      //print(response.data.toString());
       return response.data;
     } on MastodonException catch (e) {
       print(e.toString());

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mastodon_api/mastodon_api.dart';
 //import 'package:mastodon_api/account.dart';
 import '../globals.dart';
-import '../key.dart';
 
 class AccountPropertiesWidget extends StatefulWidget {
   final String accountId;
@@ -24,14 +23,9 @@ class _AccountPropertiesWidgetState extends State<AccountPropertiesWidget> {
   }
 
   Future<Account> _fetchAccount() async {
-    final mastodon = MastodonApi(
-      instance: instance,
-      bearerToken: key,
-    );
-
     try {
       final response =
-          await mastodon.v1.accounts.lookupAccount(accountId: widget.accountId);
+          await mstdn.v1.accounts.lookupAccount(accountId: widget.accountId);
       return response.data;
     } on MastodonException catch (e) {
       // Handle errors here
@@ -53,14 +47,6 @@ class _AccountPropertiesWidgetState extends State<AccountPropertiesWidget> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Account Properties',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
                   Text(
                     'ID: ${account.id}',
                     style: const TextStyle(fontSize: 16),

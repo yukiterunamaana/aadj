@@ -2,65 +2,82 @@ import 'package:aadj/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:mastodon_api/mastodon_api.dart';
 
-class MastodonPoll extends StatefulWidget {
+class PollWidget extends StatefulWidget {
   final String statusId;
   final String pollId;
 
-  MastodonPoll({required this.statusId, required this.pollId});
+  PollWidget({super.key, required this.pollId, required this.statusId});
 
   @override
-  _MastodonPollState createState() => _MastodonPollState();
+  _PollWidgetState createState() => _PollWidgetState();
 }
 
-class _MastodonPollState extends State<MastodonPoll> {
-  //late Status _status;
-  late Poll _poll;
-  List<PollOption> _options = [];
-  bool _loading = true;
+class _PollWidgetState extends State<PollWidget> {
+  late Future<Poll> _poll;
+  late bool _hasVoted;
+  late bool _pollExpired;
 
   @override
   void initState() {
     super.initState();
-    _fetchStatus();
+    _poll = _fetchPoll();
   }
 
-  Future<void> _fetchStatus() async {
-    try {
-      //_status = (await mstdn.v1.statuses.lookupPoll(pollId: widget)) as Status;
-      _poll = (await mstdn.v1.statuses.lookupPoll(pollId: widget.pollId)) as Poll;
-      _options = _poll.options.map((option) {
-        return PollOption(title: option.title, votesCount: option.votesCount);
-      }).toList()?? [];
-      setState(() {
-        _loading = false;
-      });
-    } catch (e) {
-      print(e);
-      setState(() {
-        _loading = false;
-      });
+  Future<Poll> _fetchPoll() async {
+    final poll = await mstdn.v1.statuses.lookupPoll(pollId: widget.pollId);
+    setState(() {
+      _hasVoted = poll.data.ownVotes!.isNotEmpty;
+      _pollExpired = poll.data.isExpired;
+    });
+    return poll.data;
+  }
+
+  Future<void> _vote(int optionIndex) async {
+    final account =
+        await mstdn.v1.statuses.lookupStatus(statusId: widget.statusId);
+
+    if (account.data.account.toString() == myAccount) {
+      throw Exception('You cannot vote in your own poll.');
     }
-  }
 
-  void _vote(PollOption option) async {
-    try {
-      await mstdn.v1.statuses.createVote(pollId: widget.pollId, choice: _poll.options.indexOf(option));
-      _fetchStatus();
-    } catch (e) {
-      print(e);
+    if (!_hasVoted && !_pollExpired) {
+      await mstdn.v1.statuses
+          .createVote(pollId: widget.pollId, choice: optionIndex);
+      setState(() {
+        _hasVoted = true;
+      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return const Text('todo vote'); //todo vote build
-    //todo add multiple votes
-    // return _loading
-    //     ? Center(child: CircularProgressIndicator())
-    //     : Poll(
-    //   options: _options,
-    //   question: _status.poll?.question?? '',
-    //   onVote: _vote,
-    // );
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        /*..._poll.options.asMap().entries.map((entry) {
+          return GestureDetector(
+            onTap: () {
+              _vote(entry.key);
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 10),
+              child: Row(
+                children: [
+                  Radio<int>(
+                    value: entry.key,
+                    groupValue: _hasVoted ? entry.key : null,
+                    onChanged: (value) {
+                      _vote(value!);
+                    },
+                  ),
+                  Text(entry.value as String),
+                ],
+              ),
+            ),
+          );
+        }).toList(),*/
+        //Text(_poll.expiresAt as String),
+      ],
+    );
   }
 }
