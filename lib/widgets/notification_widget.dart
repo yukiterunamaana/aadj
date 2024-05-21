@@ -1,5 +1,6 @@
 import 'package:aadj/globals.dart';
 import 'package:aadj/widgets/post_bottom_bar.dart';
+import 'package:aadj/widgets/post_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:mastodon_api/mastodon_api.dart' as mastodon;
@@ -14,17 +15,17 @@ class NotificationWidget extends StatefulWidget {
 }
 
 class _NotificationWidgetState extends State<NotificationWidget> {
-  late Future<mastodon.Notification> _futureStatus;
+  late Future<mastodon.Notification> _futureNotification;
   //I HATE flutter\packages\flutter\lib\src\widgets\notification_listener.dart
   //I HATE flutter\packages\flutter\lib\src\widgets\notification_listener.dart
 
   @override
   void initState() {
     super.initState();
-    _futureStatus = _fetchStatus();
+    _futureNotification = _fetchNotification();
   }
 
-  Future<mastodon.Notification> _fetchStatus() async {
+  Future<mastodon.Notification> _fetchNotification() async {
     try {
       final response = await mstdn.v1.notifications
           .lookupNotification(notificationId: widget.notificationId);
@@ -43,15 +44,15 @@ class _NotificationWidgetState extends State<NotificationWidget> {
         height: MediaQuery.of(context).size.height,
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(15)),
-          color: Colors.amber,
+          //color: //bgColor,
         ),
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: FutureBuilder<mastodon.Notification>(
-            future: _futureStatus,
+            future: _futureNotification,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                mastodon.Notification status = snapshot.data!;
+                mastodon.Notification notification = snapshot.data!;
                 return SizedBox(
                   height: MediaQuery.of(context).size.height,
                   child: Padding(
@@ -60,29 +61,30 @@ class _NotificationWidgetState extends State<NotificationWidget> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          status.account.displayName,
+                          notification.account.displayName,
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
                           ),
                         ),
                         Text(
-                          status.type as String,
+                          notification.type as String,
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
                           ),
                         ),
                         Text(
-                          status.createdAt as String,
+                          notification.createdAt as String,
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
                           ),
                         ),
                         const SizedBox(height: 8),
-                        // if (status.status!=null):
-                        //   {statusWidget(status.status),}
+                        notification.status != null
+                            ? StatusWidget(statusId: 'notification.status.id')
+                            : const SizedBox(height: 0),
                       ],
                     ),
                   ),
@@ -90,7 +92,7 @@ class _NotificationWidgetState extends State<NotificationWidget> {
               } else if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
               } else {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               }
             },
           ),

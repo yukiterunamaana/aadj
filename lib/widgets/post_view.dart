@@ -79,7 +79,7 @@ class _StatusWidgetState extends State<StatusWidget> {
                                       child: Image.network(
                                         media.previewUrl,
                                         width: double.infinity,
-                                        fit: BoxFit.cover,
+                                        fit: BoxFit.fitHeight,
                                       ),
                                     ))
                                 .toList(),

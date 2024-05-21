@@ -1,8 +1,10 @@
 import 'package:aadj/widgets/post_view.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:mastodon_api/mastodon_api.dart';
 
 import '../globals.dart';
+import '../widgets/notif_receiver.dart';
 import '../widgets/notification_widget.dart';
 
 class NotificationPageWidget extends StatefulWidget {
@@ -19,6 +21,7 @@ class NotificationPageWidgetState extends State<NotificationPageWidget> {
   @override
   void initState() {
     super.initState();
+    fetchNotifications();
     pagingController.addPageRequestListener((pageKey) {
       fetchPage(pageKey);
     });
@@ -28,6 +31,7 @@ class NotificationPageWidgetState extends State<NotificationPageWidget> {
     try {
       final response = await mstdn.v1.notifications.lookupNotifications();
       List responseList = response.data;
+      print(responseList);
       final notifList = responseList
           .map((data) => NotificationWidget(
                 notificationId: data.id,

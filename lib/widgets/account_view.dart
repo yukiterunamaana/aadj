@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mastodon_api/mastodon_api.dart';
-//import 'package:mastodon_api/account.dart';
 import '../globals.dart';
 
 class AccountPropertiesWidget extends StatefulWidget {
@@ -48,21 +47,17 @@ class _AccountPropertiesWidgetState extends State<AccountPropertiesWidget> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'ID: ${account.id}',
-                    style: const TextStyle(fontSize: 16),
+                    account.username,
+                    style: tagStyle,
                   ),
                   Text(
-                    'Username: ${account.username}',
-                    style: const TextStyle(fontSize: 16),
+                    account.displayName,
+                    style: tagStyle,
                   ),
-                  Text(
-                    'Display Name: ${account.displayName}',
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                  Text(
-                    'Description: ${account.note}',
-                    style: const TextStyle(fontSize: 16),
-                  ),
+                  // Text(
+                  //   account.note,
+                  //   style: contentStyle,
+                  // ),
                 ],
               ),
             ),
@@ -70,7 +65,7 @@ class _AccountPropertiesWidgetState extends State<AccountPropertiesWidget> {
         } else if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         }
       },
     );

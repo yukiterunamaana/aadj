@@ -1,22 +1,25 @@
+import 'package:aadj/widgets/account_view.dart';
+import 'package:aadj/widgets/post_creator.dart';
 import 'package:flutter/material.dart';
 
 import '../globals.dart';
-//import 'infinite_scroll_pagination_page.dart';
+import '../pages/account_page.dart';
 import '../pages/home_page.dart';
+import '../pages/notification_page.dart';
 
-class PreservingBottomNavState extends StatefulWidget {
-  const PreservingBottomNavState({Key? key}) : super(key: key);
+class AppBottomBar extends StatefulWidget {
+  const AppBottomBar({super.key});
 
   @override
-  _PreservingBottomNavStateState createState() =>
-      _PreservingBottomNavStateState();
+  _AppBottomBarState createState() => _AppBottomBarState();
 }
 
-class _PreservingBottomNavStateState extends State<PreservingBottomNavState> {
+class _AppBottomBarState extends State<AppBottomBar> {
   int _selectedIndex = 0;
 
-  static const List<Widget> _pages = <Widget>[
-    HomePageWidget(),
+  static final List<Widget> _pages = <Widget>[
+    const HomePageWidget(),
+
     //todo search menu
     Center(
       child: Icon(
@@ -24,32 +27,27 @@ class _PreservingBottomNavStateState extends State<PreservingBottomNavState> {
         size: 150,
       ),
     ),
+
     //todo post constructor
     Center(
-      child: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: TextField(
-          style: TextStyle(fontSize: 50),
-          decoration: InputDecoration(
-              labelText: 'Find contact',
-              labelStyle: TextStyle(fontWeight: FontWeight.bold)),
-        ),
-      ),
+      child: ComposeStatusWidget(),
+      //     Icon(
+      //   Icons.newspaper,
+      //   size: 150,
+      // ),
     ),
+
     //todo notifications reel
     Center(
-      child: Icon(
-        Icons.notifications,
-        size: 150,
-      ),
+      child: NotificationPageWidget(),
+      // Icon(
+      //   Icons.notifications,
+      //   size: 150,
+      // ),
     ),
+
     //todo account view
-    Center(
-      child: Icon(
-        Icons.account_circle,
-        size: 150,
-      ),
-    ),
+    const AccountPageWidget(accountId: myAccount),
   ];
 
   void _onItemTapped(int index) {
@@ -62,7 +60,7 @@ class _PreservingBottomNavStateState extends State<PreservingBottomNavState> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Preserving State Demo'),
+        title: const Text('Aadj'),
       ),
       body: IndexedStack(
         index: _selectedIndex,
