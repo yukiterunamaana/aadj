@@ -21,7 +21,7 @@ class NotificationPageWidgetState extends State<NotificationPageWidget> {
   @override
   void initState() {
     super.initState();
-    fetchNotifications();
+    //fetchNotifications();
     pagingController.addPageRequestListener((pageKey) {
       fetchPage(pageKey);
     });
@@ -31,6 +31,7 @@ class NotificationPageWidgetState extends State<NotificationPageWidget> {
     try {
       final response = await mstdn.v1.notifications.lookupNotifications();
       List responseList = response.data;
+      print('OVER HERE!');
       print(responseList);
       final notifList = responseList
           .map((data) => NotificationWidget(

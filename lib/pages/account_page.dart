@@ -82,15 +82,15 @@ class AccountPageWidgetState extends State<AccountPageWidget> {
             SliverList(
               delegate: SliverChildListDelegate([
                 AccountPropertiesWidget(accountId: widget.accountId),
-                PagedListView<int, StatusWidget>(
-                  pagingController: pagingController,
-                  builderDelegate: PagedChildBuilderDelegate<StatusWidget>(
-                    animateTransitions: true,
-                    itemBuilder: (context, item, index) => StatusWidget(
-                      statusId: item.statusId,
-                    ),
-                  ),
-                ),
+                // PagedListView<int, StatusWidget>(
+                //   pagingController: pagingController,
+                //   builderDelegate: PagedChildBuilderDelegate<StatusWidget>(
+                //     animateTransitions: true,
+                //     itemBuilder: (context, item, index) => StatusWidget(
+                //       statusId: item.statusId,
+                //     ),
+                //   ),
+                // ),
               ]),
             ),
           ],

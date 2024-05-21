@@ -17,14 +17,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.4.1"
-  another_audio_recorder:
-    dependency: "direct main"
-    description:
-      name: another_audio_recorder
-      sha256: "2e08a152e92a0629fbfbfa99b72328738baeea6fc63ebb83c9ed79a391550292"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.0"
   any_link_preview:
     dependency: "direct main"
     description:
@@ -57,14 +49,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.1.19"
-  audio_waveforms:
-    dependency: "direct main"
-    description:
-      name: audio_waveforms
-      sha256: e1425956cfa07bf8cfa02826bb509db252553964484ac516ba6e2c65b64e018e
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.5"
   boolean_selector:
     dependency: transitive
     description:
@@ -376,14 +360,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_webview_plugin:
-    dependency: "direct main"
-    description:
-      name: flutter_webview_plugin
-      sha256: ec410b10822b06432e11f9680b319609d6f34bcdabb31fcc4990ac8a2aaf9ff0
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.4.0"
   flutter_widget_from_html:
     dependency: "direct main"
     description:
