@@ -1,7 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:mastodon_api/mastodon_api.dart';
-import 'env.dart';
 
 String instance = 'mastodon.social';
 
