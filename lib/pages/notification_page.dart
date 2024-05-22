@@ -28,7 +28,6 @@ class NotificationPageWidgetState extends State<NotificationPageWidget> {
     try {
       final response = await mstdn.v1.notifications.lookupNotifications();
       List responseList = response.data;
-      print('OVER HERE!');
       print(responseList.map);
       final notifList = responseList
           .map((data) => NotificationWidget(

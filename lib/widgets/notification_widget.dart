@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mastodon_api/mastodon_api.dart' as mastodon;
 
 class NotificationWidget extends StatefulWidget {
-  final Notification notificationData;
+  final mastodon.Notification notificationData;
 
   const NotificationWidget({super.key, required this.notificationData});
 
@@ -12,28 +12,17 @@ class NotificationWidget extends StatefulWidget {
 }
 
 class _NotificationWidgetState extends State<NotificationWidget> {
-  late Future<mastodon.Notification> _futureNotification;
+  //late Future<mastodon.Notification> _futureNotification;
 
-  Future<mastodon.Notification>? get notificationData => null;
+  //Future<mastodon.Notification>? get notificationData => null;
   //I HATE flutter\packages\flutter\lib\src\widgets\notification_listener.dart
   //I HATE flutter\packages\flutter\lib\src\widgets\notification_listener.dart
 
   @override
   void initState() {
     super.initState();
-    _futureNotification = notificationData!; //_fetchNotification();
+    //_futureNotification = notificationData!; //_fetchNotification();
   }
-
-  // Future<mastodon.Notification> _fetchNotification() async {
-  //   try {
-  //     final response = await mstdn.v1.notifications
-  //         .lookupNotification(notificationId: widget.notificationData);
-  //     return response.data;
-  //   } on mastodon.MastodonException catch (e) {
-  //     print(e.toString());
-  //     return Future.error(e);
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -46,8 +35,45 @@ class _NotificationWidgetState extends State<NotificationWidget> {
           //color: //bgColor,
         ),
         child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: FutureBuilder<mastodon.Notification>(
+            padding: const EdgeInsets.all(20),
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.notificationData.account.displayName,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
+                    ),
+                    Text(
+                      widget.notificationData.type.toString(),
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
+                    ),
+                    Text(
+                      widget.notificationData.createdAt.toString(),
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    widget.notificationData.status != null
+                        ? const StatusWidget(statusId: 'notification.status.id')
+                        : const SizedBox(height: 0),
+                  ],
+                ),
+              ),
+            )
+
+            /*FutureBuilder<mastodon.Notification>(
             future: _futureNotification,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
@@ -95,9 +121,24 @@ class _NotificationWidgetState extends State<NotificationWidget> {
                 return const Center(child: CircularProgressIndicator());
               }
             },
-          ),
-        ),
+          ),*/
+            ),
       ),
     );
   }
+
+  // @override
+  // Widget build(BuildContext context) {
+  //   return ListTile(
+  //     leading: CircleAvatar(
+  //       backgroundImage: NetworkImage(notificationData.account.avatar),
+  //     ),
+  //     title: Text(notification.account.displayName),
+  //     subtitle: Text(notification.summary),
+  //     trailing: Text(
+  //       '${notification.createdAt.difference(DateTime.now()).inMinutes} min ago',
+  //       style: TextStyle(color: Colors.grey),
+  //     ),
+  //   );
+  // }
 }
