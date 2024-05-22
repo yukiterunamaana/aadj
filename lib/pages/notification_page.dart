@@ -1,10 +1,7 @@
-import 'package:aadj/widgets/post_view.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:mastodon_api/mastodon_api.dart';
 
 import '../globals.dart';
-import '../widgets/notif_receiver.dart';
 import '../widgets/notification_widget.dart';
 
 class NotificationPageWidget extends StatefulWidget {
@@ -32,10 +29,10 @@ class NotificationPageWidgetState extends State<NotificationPageWidget> {
       final response = await mstdn.v1.notifications.lookupNotifications();
       List responseList = response.data;
       print('OVER HERE!');
-      print(responseList);
+      print(responseList.map);
       final notifList = responseList
           .map((data) => NotificationWidget(
-                notificationId: data.id,
+                notificationData: data,
               ))
           .toList();
       final isLastPage = notifList.length < postsPerRequest;
@@ -69,7 +66,7 @@ class NotificationPageWidgetState extends State<NotificationPageWidget> {
             builderDelegate: PagedChildBuilderDelegate<NotificationWidget>(
                 animateTransitions: true,
                 itemBuilder: (context, item, index) => NotificationWidget(
-                      notificationId: item.notificationId,
+                      notificationData: item.notificationData,
                     )),
           ),
         ),

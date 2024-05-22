@@ -2,7 +2,6 @@ import 'package:aadj/widgets/account_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:mastodon_api/mastodon_api.dart';
 import '../globals.dart';
 import '../widgets/post_view.dart';
 
@@ -82,15 +81,15 @@ class AccountPageWidgetState extends State<AccountPageWidget> {
             SliverList(
               delegate: SliverChildListDelegate([
                 AccountPropertiesWidget(accountId: widget.accountId),
-                // PagedListView<int, StatusWidget>(
-                //   pagingController: pagingController,
-                //   builderDelegate: PagedChildBuilderDelegate<StatusWidget>(
-                //     animateTransitions: true,
-                //     itemBuilder: (context, item, index) => StatusWidget(
-                //       statusId: item.statusId,
-                //     ),
-                //   ),
-                // ),
+                PagedListView<int, StatusWidget>(
+                  pagingController: pagingController,
+                  builderDelegate: PagedChildBuilderDelegate<StatusWidget>(
+                    animateTransitions: true,
+                    itemBuilder: (context, item, index) => StatusWidget(
+                      statusId: item.statusId,
+                    ),
+                  ),
+                ),
               ]),
             ),
           ],

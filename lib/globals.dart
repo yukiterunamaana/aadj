@@ -9,6 +9,8 @@ Color? selectedItemColor = Colors.amber;
 Color? activatedReactionColor = Colors.red;
 Color bgColor = Colors.amber;
 
+bool animationsEnabled = false;
+
 int postsPerRequest = 20; //max 40, default 20
 const String myAccount = '112282440600157454';
 MastodonApi mstdn =

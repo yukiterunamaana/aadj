@@ -54,9 +54,6 @@ class HomePageWidgetState extends State<HomePageWidget> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: const Text('trending'),
-        ),
         body: RefreshIndicator(
           onRefresh: () => Future.sync(pagingController.refresh),
           child: PagedListView<int, StatusWidget>(

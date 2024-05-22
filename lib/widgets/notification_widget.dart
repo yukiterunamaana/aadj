@@ -1,14 +1,11 @@
-import 'package:aadj/globals.dart';
-import 'package:aadj/widgets/post_bottom_bar.dart';
 import 'package:aadj/widgets/post_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:mastodon_api/mastodon_api.dart' as mastodon;
 
 class NotificationWidget extends StatefulWidget {
-  final String notificationId;
+  final Notification notificationData;
 
-  const NotificationWidget({super.key, required this.notificationId});
+  const NotificationWidget({super.key, required this.notificationData});
 
   @override
   _NotificationWidgetState createState() => _NotificationWidgetState();
@@ -16,25 +13,27 @@ class NotificationWidget extends StatefulWidget {
 
 class _NotificationWidgetState extends State<NotificationWidget> {
   late Future<mastodon.Notification> _futureNotification;
+
+  Future<mastodon.Notification>? get notificationData => null;
   //I HATE flutter\packages\flutter\lib\src\widgets\notification_listener.dart
   //I HATE flutter\packages\flutter\lib\src\widgets\notification_listener.dart
 
   @override
   void initState() {
     super.initState();
-    _futureNotification = _fetchNotification();
+    _futureNotification = notificationData!; //_fetchNotification();
   }
 
-  Future<mastodon.Notification> _fetchNotification() async {
-    try {
-      final response = await mstdn.v1.notifications
-          .lookupNotification(notificationId: widget.notificationId);
-      return response.data;
-    } on mastodon.MastodonException catch (e) {
-      print(e.toString());
-      return Future.error(e);
-    }
-  }
+  // Future<mastodon.Notification> _fetchNotification() async {
+  //   try {
+  //     final response = await mstdn.v1.notifications
+  //         .lookupNotification(notificationId: widget.notificationData);
+  //     return response.data;
+  //   } on mastodon.MastodonException catch (e) {
+  //     print(e.toString());
+  //     return Future.error(e);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +82,8 @@ class _NotificationWidgetState extends State<NotificationWidget> {
                         ),
                         const SizedBox(height: 8),
                         notification.status != null
-                            ? StatusWidget(statusId: 'notification.status.id')
+                            ? const StatusWidget(
+                                statusId: 'notification.status.id')
                             : const SizedBox(height: 0),
                       ],
                     ),
