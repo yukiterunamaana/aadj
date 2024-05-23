@@ -1,3 +1,4 @@
+import 'package:aadj/pages/search_page.dart';
 import 'package:aadj/widgets/account_view.dart';
 import 'package:aadj/widgets/post_creator.dart';
 import 'package:flutter/material.dart';
@@ -22,10 +23,7 @@ class _AppBottomBarState extends State<AppBottomBar> {
 
     //todo search menu
     Center(
-      child: Icon(
-        Icons.search,
-        size: 150,
-      ),
+      child: SearchWithTabs(),
     ),
 
     //todo post constructor

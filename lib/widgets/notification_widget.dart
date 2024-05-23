@@ -26,13 +26,15 @@ class _NotificationWidgetState extends State<NotificationWidget> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.notificationData.status);
+
     return Padding(
       padding: const EdgeInsets.all(15),
       child: Container(
         height: MediaQuery.of(context).size.height,
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(15)),
-          //color: //bgColor,
+          color: Colors.deepOrangeAccent,
         ),
         child: Padding(
             padding: const EdgeInsets.all(20),
@@ -64,9 +66,19 @@ class _NotificationWidgetState extends State<NotificationWidget> {
                         fontSize: 18,
                       ),
                     ),
+                    widget.notificationData.status != null
+                        ? Text(
+                            widget.notificationData.createdAt.toString(),
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                          )
+                        : const Text(''),
                     const SizedBox(height: 8),
                     widget.notificationData.status != null
-                        ? const StatusWidget(statusId: 'notification.status.id')
+                        ? StatusWidget(
+                            statusId: widget.notificationData.status!.id)
                         : const SizedBox(height: 0),
                   ],
                 ),

@@ -57,44 +57,62 @@ class AccountPageWidgetState extends State<AccountPageWidget> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        // body: Expanded(
-        //   child:
-        // Column(children: [
-        //   AccountPropertiesWidget(accountId: widget.accountId),
-        //   Expanded(
-        //     //onRefresh: () => Future.sync(pagingController.refresh),
-        //     child: PagedListView<int, StatusWidget>(
-        //       pagingController: pagingController,
-        //       builderDelegate: PagedChildBuilderDelegate<StatusWidget>(
-        //         animateTransitions: true,
-        //         itemBuilder: (context, item, index) => StatusWidget(
-        //           statusId: item.statusId,
-        //         ),
-        //       ),
-        //     ),
-        //   ),
-        // ]
-        // ),
+          // body: Expanded(
+          //   child:
+          // Column(children: [
+          //   AccountPropertiesWidget(accountId: widget.accountId),
+          //   Expanded(
+          //     //onRefresh: () => Future.sync(pagingController.refresh),
+          //     child: PagedListView<int, StatusWidget>(
+          //       pagingController: pagingController,
+          //       builderDelegate: PagedChildBuilderDelegate<StatusWidget>(
+          //         animateTransitions: true,
+          //         itemBuilder: (context, item, index) => StatusWidget(
+          //           statusId: item.statusId,
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          // ]
+          // ),
 
-        body: CustomScrollView(
-          slivers: [
-            SliverList(
-              delegate: SliverChildListDelegate([
-                AccountPropertiesWidget(accountId: widget.accountId),
-                PagedListView<int, StatusWidget>(
-                  pagingController: pagingController,
-                  builderDelegate: PagedChildBuilderDelegate<StatusWidget>(
-                    animateTransitions: true,
-                    itemBuilder: (context, item, index) => StatusWidget(
-                      statusId: item.statusId,
-                    ),
-                  ),
+          body: RefreshIndicator(
+        onRefresh: () => Future.sync(pagingController.refresh),
+        child: Column(
+          children: [
+            AccountPropertiesWidget(accountId: widget.accountId),
+            PagedListView<int, StatusWidget>(
+              pagingController: pagingController,
+              builderDelegate: PagedChildBuilderDelegate<StatusWidget>(
+                animateTransitions: true,
+                itemBuilder: (context, item, index) => StatusWidget(
+                  statusId: item.statusId,
                 ),
-              ]),
+              ),
             ),
           ],
         ),
-      );
+      ));
+
+  //   CustomScrollView(
+  //     slivers: [
+  //       SliverList(
+  //         delegate: SliverChildListDelegate([
+  //           AccountPropertiesWidget(accountId: widget.accountId),
+  //           PagedListView<int, StatusWidget>(
+  //             pagingController: pagingController,
+  //             builderDelegate: PagedChildBuilderDelegate<StatusWidget>(
+  //               animateTransitions: true,
+  //               itemBuilder: (context, item, index) => StatusWidget(
+  //                 statusId: item.statusId,
+  //               ),
+  //             ),
+  //           ),
+  //         ]),
+  //       ),
+  //     ],
+  //   ),
+  // );
 }
 
 //   @override

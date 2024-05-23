@@ -1,5 +1,6 @@
 import 'package:aadj/globals.dart';
 import 'package:aadj/instance_settings.dart';
+import 'package:aadj/widgets/post_option_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:mastodon_api/mastodon_api.dart';
 
@@ -65,6 +66,26 @@ class _ComposeStatusWidgetState extends State<ComposeStatusWidget> {
 
         Row(
           children: [
+            // IconButton(
+            //   icon:
+            Icon(Icons.image),
+            //   onPressed: hasMedia ? null : onMediaTap,
+            // ),
+            // IconButton(
+            //   icon:
+            Icon(Icons.poll),
+            //   onPressed: hasPoll ? null : onPollTap,
+            // ),
+            // IconButton(
+            //   icon:
+            Icon(Icons.emoji_emotions),
+            //   onPressed: hasEmojiKeyboard ? null : onEmojiKeyboardTap,
+            // ),
+            // IconButton(
+            //   icon:
+            Icon(Icons.warning),
+            //   onPressed: hasContentWarning ? null : onContentWarningTap,
+            // ),
             ElevatedButton(
                 child: const Text('Publish'),
                 onPressed: () async {
