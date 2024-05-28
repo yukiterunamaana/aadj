@@ -96,7 +96,7 @@ class SearchWithTabs extends StatelessWidget {
               imageUrl: item['image_url'],
               content: item['content'],
             ),
-            noItemsFoundIndicatorBuilder: (context) => Center(
+            noItemsFoundIndicatorBuilder: (context) => const Center(
               child: Text('No posts found.'),
             ),
           ),
