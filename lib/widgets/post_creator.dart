@@ -8,6 +8,10 @@ import 'package:mastodon_api/mastodon_api.dart';
 //import 'emoji_keyboard.dart';
 
 class ComposeStatusWidget extends StatefulWidget {
+  final String inReplyToId;
+
+  ComposeStatusWidget({super.key, this.inReplyToId = ''});
+
   @override
   _ComposeStatusWidgetState createState() => _ComposeStatusWidgetState();
 }
@@ -90,8 +94,9 @@ class _ComposeStatusWidgetState extends State<ComposeStatusWidget> {
                 child: const Text('Publish'),
                 onPressed: () async {
                   try {
-                    final response = await mstdn.v1.statuses
-                        .createStatus(text: _statusController.text);
+                    final response = await mstdn.v1.statuses.createStatus(
+                        text: _statusController.text,
+                        inReplyToStatusId: widget.inReplyToId);
 
                     if (response.status.code == 200) {
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -127,9 +132,9 @@ class _ComposeStatusWidgetState extends State<ComposeStatusWidget> {
                     print(e.body);
                     print(e);
                   }
-                  // Create a new status with the selected options
-                  final status = mstdn.v1.statuses
-                      .createStatus(text: _statusController.text);
+                  // // Create a new status with the selected options
+                  // final status = mstdn.v1.statuses
+                  //     .createStatus(text: _statusController.text);
                 }),
             Text('500' /*remainingCharacters.toString()*/),
           ],

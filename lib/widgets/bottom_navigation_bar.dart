@@ -73,7 +73,7 @@ class _AppBottomBarState extends State<AppBottomBar> {
             icon: Icon(Icons.home, color: itemColor),
             activeIcon: Icon(
               Icons.home,
-              color: selectedItemColor,
+              color: blobColor1,
             ),
             label: 'Home',
           ),
@@ -81,7 +81,7 @@ class _AppBottomBarState extends State<AppBottomBar> {
             icon: Icon(Icons.search, color: itemColor),
             activeIcon: Icon(
               Icons.search,
-              color: selectedItemColor,
+              color: blobColor1,
             ),
             label: 'Search',
           ),
@@ -93,7 +93,7 @@ class _AppBottomBarState extends State<AppBottomBar> {
             icon: Icon(Icons.notifications, color: itemColor),
             activeIcon: Icon(
               Icons.notifications,
-              color: selectedItemColor,
+              color: blobColor1,
             ),
             label: 'Notifications',
           ),
@@ -101,7 +101,7 @@ class _AppBottomBarState extends State<AppBottomBar> {
             icon: Icon(Icons.account_circle, color: itemColor),
             activeIcon: Icon(
               Icons.account_circle,
-              color: selectedItemColor,
+              color: blobColor1,
             ),
             label: 'Account',
           ),

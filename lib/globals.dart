@@ -5,7 +5,8 @@ import 'instance_settings.dart';
 import 'key.dart';
 
 Color itemColor = Colors.black;
-Color? selectedItemColor = Colors.amber;
+Color? blobColor1 = Colors.amber;
+Color? blobColor2 = Colors.amber;
 Color? activatedReactionColor = Colors.red;
 Color bgColor = Colors.amber;
 
