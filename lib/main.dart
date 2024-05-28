@@ -1,7 +1,6 @@
 import 'package:aadj/env.dart';
 import 'package:aadj/instance_settings.dart';
 import 'package:flutter/material.dart';
-import 'widgets/auth.dart';
 import 'myapp.dart';
 import 'package:mastodon_oauth2/mastodon_oauth2.dart';
 //import 'package:mastodon_api/mastodon_api.dart';
@@ -11,7 +10,7 @@ import 'package:mastodon_oauth2/mastodon_oauth2.dart';
 // //todo ASK ABOUT USER PAGE PROBLEM
 
 void main() {
-  runApp(const MaterialApp(home: Example()));
+  runApp(const MaterialApp(home: MyApp()));
 }
 
 class Example extends StatefulWidget {
@@ -136,7 +135,6 @@ class _ExampleState extends State<Example> {
 // // import 'package:aadj/env.dart';
 // // import 'package:aadj/instance_settings.dart';
 // // import 'package:flutter/material.dart';
-// // import 'widgets/auth.dart';
 // // import 'myapp.dart';
 // // import 'package:mastodon_oauth2/mastodon_oauth2.dart';
 // //
