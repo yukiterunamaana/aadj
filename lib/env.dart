@@ -8,6 +8,4 @@ abstract class Env {
   static String clientKey = _Env.clientKey;
   @EnviedField(varName: 'CLIENTSECRET', defaultValue: '', obfuscate: true)
   static String clientSecret = _Env.clientSecret;
-  @EnviedField(varName: 'USERACCESSTOKEN', defaultValue: '', obfuscate: true)
-  static String userAccessToken = _Env.userAccessToken;
 }
