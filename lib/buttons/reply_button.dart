@@ -7,7 +7,8 @@ class ReplyButton extends StatelessWidget {
   final MastodonApi mastodon;
   final String statusId;
 
-  ReplyButton({super.key, required this.mastodon, required this.statusId});
+  const ReplyButton(
+      {super.key, required this.mastodon, required this.statusId});
   //
   // @override
   // Widget build(BuildContext context) {
@@ -23,7 +24,6 @@ class ReplyButton extends StatelessWidget {
         showModalBottomSheet(
           context: context,
           builder: (BuildContext context) {
-            print(statusId);
             return ComposeStatusWidget(
               inReplyToId: statusId,
             );

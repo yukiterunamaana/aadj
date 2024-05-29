@@ -8,7 +8,7 @@ class FavoriteButton extends StatefulWidget {
   final String statusId;
   final bool? isFavourited;
 
-  FavoriteButton({
+  const FavoriteButton({
     super.key,
     required this.mastodon,
     required this.statusId,

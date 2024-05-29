@@ -8,7 +8,7 @@ class BookmarkButton extends StatefulWidget {
   final String statusId;
   final bool? isBookmarked;
 
-  BookmarkButton({
+  const BookmarkButton({
     super.key,
     required this.mastodon,
     required this.statusId,

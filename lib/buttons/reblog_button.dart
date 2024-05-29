@@ -8,7 +8,7 @@ class ReblogButton extends StatefulWidget {
   final String statusId;
   final bool? isReblogged;
 
-  ReblogButton({
+  const ReblogButton({
     super.key,
     required this.mastodon,
     required this.statusId,
