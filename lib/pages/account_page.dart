@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:mastodon_api/mastodon_api.dart';
 import '../globals.dart';
+import '../widgets/post_in_feed_widget.dart';
 import '../widgets/post_view.dart';
 
 class AccountPageWidget extends StatefulWidget {
@@ -15,7 +16,7 @@ class AccountPageWidget extends StatefulWidget {
 }
 
 class AccountPageWidgetState extends State<AccountPageWidget> {
-  final PagingController<int, StatusWidget> pagingController =
+  final PagingController<int, FeedStatusWidget> pagingController =
       PagingController(firstPageKey: 1);
 
   @override
@@ -32,7 +33,7 @@ class AccountPageWidgetState extends State<AccountPageWidget> {
           await mstdn.v1.accounts.lookupStatuses(accountId: widget.accountId);
       List responseList = response.data;
       final postList = responseList
-          .map((data) => StatusWidget(
+          .map((data) => FeedStatusWidget(
                 statusId: data.id,
               ))
           .toList();
@@ -77,9 +78,9 @@ class AccountPageWidgetState extends State<AccountPageWidget> {
                 ),
               ];
             },
-            body: PagedListView<int, StatusWidget>(
+            body: PagedListView<int, FeedStatusWidget>(
               pagingController: pagingController,
-              builderDelegate: PagedChildBuilderDelegate<StatusWidget>(
+              builderDelegate: PagedChildBuilderDelegate<FeedStatusWidget>(
                 itemBuilder: (context, item, index) {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,

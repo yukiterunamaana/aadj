@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 import '../globals.dart';
+import '../widgets/post_in_feed_widget.dart';
 
 class HomePageWidget extends StatefulWidget {
   const HomePageWidget({super.key});
@@ -12,7 +13,7 @@ class HomePageWidget extends StatefulWidget {
 }
 
 class HomePageWidgetState extends State<HomePageWidget> {
-  final PagingController<int, StatusWidget> pagingController =
+  final PagingController<int, FeedStatusWidget> pagingController =
       PagingController(firstPageKey: 1);
 
   @override
@@ -28,7 +29,7 @@ class HomePageWidgetState extends State<HomePageWidget> {
       final response = await mstdn.v1.timelines.lookupHomeTimeline();
       List responseList = response.data;
       final postList = responseList
-          .map((data) => StatusWidget(
+          .map((data) => FeedStatusWidget(
                 statusId: data.id,
               ))
           .toList();
@@ -56,11 +57,11 @@ class HomePageWidgetState extends State<HomePageWidget> {
   Widget build(BuildContext context) => Scaffold(
         body: RefreshIndicator(
           onRefresh: () => Future.sync(pagingController.refresh),
-          child: PagedListView<int, StatusWidget>(
+          child: PagedListView<int, FeedStatusWidget>(
             pagingController: pagingController,
-            builderDelegate: PagedChildBuilderDelegate<StatusWidget>(
+            builderDelegate: PagedChildBuilderDelegate<FeedStatusWidget>(
               animateTransitions: true,
-              itemBuilder: (context, item, index) => StatusWidget(
+              itemBuilder: (context, item, index) => FeedStatusWidget(
                 statusId: item.statusId,
               ),
             ),

@@ -1,3 +1,4 @@
+import 'package:aadj/widgets/post_in_feed_widget.dart';
 import 'package:aadj/widgets/post_view.dart';
 import 'package:flutter/material.dart';
 import 'package:mastodon_api/mastodon_api.dart';
@@ -81,7 +82,7 @@ class _StatusContextWidgetState extends State<StatusContextWidget> {
               children: [
                 // Display ancestors
                 ...statusContext.ancestors
-                    .map((ancestor) => StatusWidget(statusId: ancestor.id)),
+                    .map((ancestor) => FeedStatusWidget(statusId: ancestor.id)),
 
                 // Display the status itself
                 Container(
@@ -96,8 +97,8 @@ class _StatusContextWidgetState extends State<StatusContextWidget> {
                   ),
                 ),
                 // Display descendants (replies)
-                ...statusContext.descendants
-                    .map((descendant) => StatusWidget(statusId: descendant.id)),
+                ...statusContext.descendants.map(
+                    (descendant) => FeedStatusWidget(statusId: descendant.id)),
               ],
             );
           } else if (snapshot.hasError) {
