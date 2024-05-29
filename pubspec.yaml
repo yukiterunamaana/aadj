@@ -44,6 +44,7 @@ dependencies:
   oauth2_client: ^2.3.1
   app_links: ^6.1.1
   flutter_secure_storage: ^5.1.2
+  encrypt: ^5.0.3
 
 dev_dependencies:
   flutter_test:

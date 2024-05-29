@@ -16,6 +16,7 @@ int postsPerRequest = 20; //max 40, default 20
 const String myAccount = '112282440600157454';
 MastodonApi mstdn =
     MastodonApi(instance: instance, bearerToken: mastodonUserToken);
+
 Application app = const Application(name: 'Aadj', vapidKey: '');
 //todo ask about vapid key
 
