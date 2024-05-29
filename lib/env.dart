@@ -8,4 +8,6 @@ abstract class Env {
   static String clientKey = _Env.clientKey;
   @EnviedField(varName: 'CLIENTSECRET', obfuscate: true)
   static String clientSecret = _Env.clientSecret;
+  @EnviedField(varName: 'REDIRECTURI', obfuscate: true)
+  static String redirectURI = _Env.redirectURI;
 }
