@@ -2,6 +2,7 @@ import 'package:aadj/widgets/account_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:mastodon_api/mastodon_api.dart';
 import '../globals.dart';
 import '../widgets/post_view.dart';
 
@@ -57,108 +58,60 @@ class AccountPageWidgetState extends State<AccountPageWidget> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-          // body: Expanded(
-          //   child:
-          // Column(children: [
-          //   AccountPropertiesWidget(accountId: widget.accountId),
-          //   Expanded(
-          //     //onRefresh: () => Future.sync(pagingController.refresh),
-          //     child: PagedListView<int, StatusWidget>(
-          //       pagingController: pagingController,
-          //       builderDelegate: PagedChildBuilderDelegate<StatusWidget>(
-          //         animateTransitions: true,
-          //         itemBuilder: (context, item, index) => StatusWidget(
-          //           statusId: item.statusId,
-          //         ),
-          //       ),
-          //     ),
-          //   ),
-          // ]
-          // ),
-
-          body: RefreshIndicator(
-        onRefresh: () => Future.sync(pagingController.refresh),
-        child: Column(
-          children: [
-            AccountPropertiesWidget(accountId: widget.accountId),
-            PagedListView<int, StatusWidget>(
+        body: RefreshIndicator(
+          onRefresh: () => Future.sync(pagingController.refresh),
+          child: NestedScrollView(
+            headerSliverBuilder: (context, innerBoxIsScrolled) {
+              return [
+                SliverAppBar(
+                  expandedHeight: 200,
+                  flexibleSpace: FlexibleSpaceBar(
+                    title: const AccountPropertiesWidget(
+                      accountId: myAccount,
+                    ),
+                    // background: Image.network(
+                    // _mastodonApi.currentUser.header,
+                    // fit: BoxFit.cover,
+                    // ),
+                  ),
+                ),
+              ];
+            },
+            body: PagedListView<int, StatusWidget>(
               pagingController: pagingController,
               builderDelegate: PagedChildBuilderDelegate<StatusWidget>(
-                animateTransitions: true,
-                itemBuilder: (context, item, index) => StatusWidget(
-                  statusId: item.statusId,
-                ),
+                itemBuilder: (context, item, index) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Container(
+                          child:
+                              item //StatusWidget(statusId: widget.accountId),
+                          ),
+                    ],
+                  );
+                },
               ),
             ),
-          ],
+          ),
         ),
-      ));
-
-  //   CustomScrollView(
-  //     slivers: [
-  //       SliverList(
-  //         delegate: SliverChildListDelegate([
-  //           AccountPropertiesWidget(accountId: widget.accountId),
-  //           PagedListView<int, StatusWidget>(
-  //             pagingController: pagingController,
-  //             builderDelegate: PagedChildBuilderDelegate<StatusWidget>(
-  //               animateTransitions: true,
-  //               itemBuilder: (context, item, index) => StatusWidget(
-  //                 statusId: item.statusId,
-  //               ),
-  //             ),
-  //           ),
-  //         ]),
-  //       ),
-  //     ],
-  //   ),
-  // );
+      );
 }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: CustomScrollView(
-//         slivers: [
-//           // Header with user info
-//           SliverAppBar(
-//             pinned: true, // This will keep the header at the top initially
-//             floating: true, // This will allow the header to scroll away
-//             title: FutureBuilder(
-//               future: _accountFuture,
-//               builder: (context, snapshot) {
-//                 if (snapshot.hasData) {
-//                   Account account = snapshot.data! as Account;
-//                   return Text(account.displayName);
-//                 } else {
-//                   return CircularProgressIndicator();
-//                 }
-//               },
-//             ),
-//           ),
-//           // Feed of posts
-//           SliverList(
-//             delegate: SliverChildBuilderDelegate(
-//               (context, index) {
-//                 return FutureBuilder(
-//                   future: _postsFuture,
-//                   builder: (context, snapshot) {
-//                     if (snapshot.hasData) {
-//                       List<Post> posts = snapshot.data!;
-//                       return ListTile(
-//                         title: Text(posts[index].content),
-//                       );
-//                     } else {
-//                       return CircularProgressIndicator();
-//                     }
-//                   },
-//                 );
-//               },
-//               childCount: 10, // Replace with the actual number of posts
-//             ),
-//           ),
+//     PagedListView<int, StatusWidget>(
+//   pagingController: pagingController,
+//   builderDelegate: PagedChildBuilderDelegate<StatusWidget>(
+//     itemBuilder: (context, item, index) {
+//       return Column(
+//         crossAxisAlignment: CrossAxisAlignment.stretch,
+//         children: [
+//           index == 0
+//               ? AccountPropertiesWidget(accountId: widget.accountId)
+//               : Container(
+//                   child: StatusWidget(statusId: widget.accountId)),
+//           if (index < pagingController.itemList!.length - 1) Divider(),
 //         ],
-//       ),
-//     );
-//   }
-// }
+//       );
+//     },
+//   ),
+// ),
+//  ));
