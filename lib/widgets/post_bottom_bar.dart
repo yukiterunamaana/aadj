@@ -1,8 +1,8 @@
-import 'package:aadj/buttons/bookmark_button.dart';
-import 'package:aadj/buttons/favorite_button.dart';
+import 'package:aadj/widgets/buttons/bookmark_button.dart';
+import 'package:aadj/widgets/buttons/favorite_button.dart';
 import 'package:aadj/core/globals.dart';
-import 'package:aadj/buttons/reblog_button.dart';
-import 'package:aadj/buttons/reply_button.dart';
+import 'package:aadj/widgets/buttons/reblog_button.dart';
+import 'package:aadj/widgets/buttons/reply_button.dart';
 import 'package:flutter/material.dart';
 
 class PostBottomBar extends StatefulWidget {
