@@ -2,7 +2,7 @@ import 'package:aadj/widgets/post_view.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
-import '../globals.dart';
+import '../core/globals.dart';
 import '../widgets/post_in_feed_widget.dart';
 
 class HomePageWidget extends StatefulWidget {

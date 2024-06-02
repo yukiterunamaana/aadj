@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mastodon_api/mastodon_api.dart';
 
-import '../globals.dart';
+import '../core/globals.dart';
 
 class BookmarkButton extends StatefulWidget {
   final MastodonApi mastodon;

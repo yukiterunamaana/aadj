@@ -1,4 +1,4 @@
-import 'package:aadj/globals.dart';
+import 'package:aadj/core/globals.dart';
 import 'package:aadj/widgets/post_bottom_bar.dart';
 import 'package:aadj/widgets/post_thread_view.dart';
 import 'package:aadj/widgets/post_view.dart';

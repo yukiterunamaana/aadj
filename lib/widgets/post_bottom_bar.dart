@@ -1,6 +1,6 @@
 import 'package:aadj/buttons/bookmark_button.dart';
 import 'package:aadj/buttons/favorite_button.dart';
-import 'package:aadj/globals.dart';
+import 'package:aadj/core/globals.dart';
 import 'package:aadj/buttons/reblog_button.dart';
 import 'package:aadj/buttons/reply_button.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +52,7 @@ class _PostBottomBarState extends State<PostBottomBar> {
             statusId: widget.statusId,
             isBookmarked: widget.isBookmarked),
         //todo additional menu
-        const Icon(Icons.menu_rounded),
+        //const Icon(Icons.menu_rounded),
       ],
       // Icon(
       //   _isReacted ? Icons.favorite : Icons.favorite_border,

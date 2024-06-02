@@ -3,7 +3,7 @@ import 'package:aadj/widgets/post_view.dart';
 import 'package:flutter/material.dart';
 import 'package:mastodon_api/mastodon_api.dart';
 
-import '../globals.dart';
+import '../core/globals.dart';
 
 // class ThreadWidget extends StatelessWidget {
 //   final StatusWidget statusWidget;

@@ -4,8 +4,6 @@ import 'package:mastodon_api/mastodon_api.dart';
 
 import 'globals.dart';
 
-String instance = 'mastodon.social';
-
 String instanceSettings = jsonEncode(mstdn.v1.instance.lookupInformation());
 
 List<Emoji> emojis = mstdn.v1.instance.lookupAvailableEmoji() as List<Emoji>;

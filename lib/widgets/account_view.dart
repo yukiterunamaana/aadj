@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:mastodon_api/mastodon_api.dart';
-import '../globals.dart';
+import '../core/globals.dart';
 
 class AccountPropertiesWidget extends StatefulWidget {
   final String accountId;

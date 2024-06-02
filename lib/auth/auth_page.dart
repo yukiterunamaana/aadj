@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:mastodon_api/mastodon_api.dart' as m;
 import 'package:mastodon_oauth2/mastodon_oauth2.dart';
 
-import '../../auth.dart';
-import '../../env.dart';
-import '../../instance_settings.dart';
+import 'auth.dart';
+import '../../core/env.dart';
+import '../../core/globals.dart';
 import '../../widgets/bottom_navigation_bar.dart';
 
 class AuthPage extends StatefulWidget {

@@ -1,4 +1,4 @@
-import 'package:aadj/globals.dart';
+import 'package:aadj/core/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:mastodon_api/mastodon_api.dart';
 

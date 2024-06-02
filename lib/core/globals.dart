@@ -14,6 +14,7 @@ bool animationsEnabled = false;
 
 int postsPerRequest = 20; //max 40, default 20
 const String myAccount = '112282440600157454';
+String instance = 'mastodon.social';
 MastodonApi mstdn =
     MastodonApi(instance: instance, bearerToken: mastodonUserToken);
 

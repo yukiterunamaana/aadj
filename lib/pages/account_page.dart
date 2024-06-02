@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:mastodon_api/mastodon_api.dart';
-import '../globals.dart';
+import '../core/globals.dart';
 import '../widgets/post_in_feed_widget.dart';
 import '../widgets/post_view.dart';
 

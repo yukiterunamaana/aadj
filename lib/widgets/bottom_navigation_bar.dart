@@ -3,7 +3,7 @@ import 'package:aadj/widgets/account_view.dart';
 import 'package:aadj/widgets/post_creator.dart';
 import 'package:flutter/material.dart';
 
-import '../globals.dart';
+import '../core/globals.dart';
 import '../pages/account_page.dart';
 import '../pages/home_page.dart';
 import '../pages/notification_page.dart';
