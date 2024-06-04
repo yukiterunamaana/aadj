@@ -2,6 +2,9 @@ import 'package:aadj/widgets/post_view.dart';
 import 'package:flutter/material.dart';
 import 'package:mastodon_api/mastodon_api.dart' as mastodon;
 
+import 'date_widget.dart';
+import 'notification_type_message.dart';
+
 class NotificationWidget extends StatefulWidget {
   final mastodon.Notification notificationData;
 
@@ -53,28 +56,19 @@ class _NotificationWidgetState extends State<NotificationWidget> {
                       ),
                     ),
                     Text(
-                      widget.notificationData.type.toString(),
+                      notificationTextBuilder(widget.notificationData.type),
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
                       ),
                     ),
                     Text(
-                      widget.notificationData.createdAt.toString(),
+                      convertDate(widget.notificationData.createdAt),
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
                       ),
                     ),
-                    widget.notificationData.status != null
-                        ? Text(
-                            widget.notificationData.createdAt.toString(),
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                            ),
-                          )
-                        : const Text(''),
                     const SizedBox(height: 8),
                     widget.notificationData.status != null
                         ? StatusWidget(

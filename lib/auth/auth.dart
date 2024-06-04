@@ -1,8 +1,9 @@
 import 'package:http/http.dart' as http;
 import '../../core/env.dart';
+import '../core/globals.dart';
 
 void auth(String code) async {
-  final url = Uri.parse('https://mastodon.social/oauth/token');
+  final url = Uri.parse('https://${instance}/oauth/token');
 
   final req = http.MultipartRequest('POST', url)
     ..fields['grant_type'] = 'client_credentials'

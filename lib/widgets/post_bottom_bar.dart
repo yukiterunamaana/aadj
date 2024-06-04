@@ -25,17 +25,6 @@ class PostBottomBar extends StatefulWidget {
 class _PostBottomBarState extends State<PostBottomBar> {
   @override
   Widget build(BuildContext context) {
-    // return GestureDetector(
-    //   onTap: () {
-    //     setState(() {
-    //       _isReacted = !_isReacted;
-    //       if (widget.reactionType == ReactionType.favorite) {
-    //         _toggleFavorite();
-    //       } else if (widget.reactionType == ReactionType.boost) {
-    //         _toggleBoost();
-    //       }
-    //     });
-    //   },
     return Row(
       children: [
         ReplyButton(mastodon: mstdn, statusId: widget.statusId),
@@ -54,15 +43,6 @@ class _PostBottomBarState extends State<PostBottomBar> {
         //todo additional menu
         //const Icon(Icons.menu_rounded),
       ],
-      // Icon(
-      //   _isReacted ? Icons.favorite : Icons.favorite_border,
-      //   color: _isReacted ? activatedReactionColor : null,
-      // ),
-      //
-      // Icon(
-      //   _isReacted ? Icons.repeat : Icons.repeat_outlined,
-      //   color: _isReacted ? activatedReactionColor : null,
-      // ),
     );
   }
 }

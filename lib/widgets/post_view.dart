@@ -91,21 +91,21 @@ class _StatusWidgetState extends State<StatusWidget> {
                             //   style: const TextStyle(fontSize: 16),
                             // ),
                             HtmlWidget(status.content),
-                            Expanded(
-                              child: Column(
-                                children: status.mediaAttachments
-                                    .map((media) => Padding(
-                                          padding:
-                                              const EdgeInsets.only(top: 16),
-                                          child: Image.network(
-                                            media.previewUrl,
-                                            //width: double.infinity,
-                                            fit: BoxFit.fitHeight,
-                                          ),
-                                        ))
-                                    .toList(),
-                              ),
+                            //Expanded(
+                            //child:
+                            Column(
+                              children: status.mediaAttachments
+                                  .map((media) => Padding(
+                                        padding: const EdgeInsets.only(top: 16),
+                                        child: Image.network(
+                                          media.previewUrl,
+                                          //width: double.infinity,
+                                          fit: BoxFit.fitHeight,
+                                        ),
+                                      ))
+                                  .toList(),
                             ),
+                            //),
                             //AnyLinkPreview(link: '',) todo link preview
                             PostBottomBar(
                                 statusId: widget.statusId,
