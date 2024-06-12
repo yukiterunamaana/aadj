@@ -86,10 +86,6 @@ class _StatusWidgetState extends State<StatusWidget> {
                               ),
                             ),
                             const SizedBox(height: 8),
-                            // Text(
-                            //   status.content,
-                            //   style: const TextStyle(fontSize: 16),
-                            // ),
                             HtmlWidget(status.content),
                             //Expanded(
                             //child:

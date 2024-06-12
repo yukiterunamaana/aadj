@@ -118,7 +118,7 @@ class _ComposeStatusWidgetState extends State<ComposeStatusWidget> {
                       // Show an error message
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                            content: Text('Failed to publish status:')),
+                            content: Text('Failed to publish status')),
                       );
                     }
                     print(response.rateLimit);
@@ -136,7 +136,7 @@ class _ComposeStatusWidgetState extends State<ComposeStatusWidget> {
                   // final status = mstdn.v1.statuses
                   //     .createStatus(text: _statusController.text);
                 }),
-            Text('500' /*remainingCharacters.toString()*/),
+            //Text('500' /*remainingCharacters.toString()*/),
           ],
         )
       ],

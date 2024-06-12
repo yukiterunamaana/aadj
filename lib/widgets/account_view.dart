@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:mastodon_api/mastodon_api.dart';
@@ -41,18 +42,50 @@ class _AccountPropertiesWidgetState extends State<AccountPropertiesWidget> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           Account account = snapshot.data!;
-          return Card(
+          return SingleChildScrollView(
+              child: Card(
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  animationsEnabled
-                      ? Image.network(account.header)
-                      : Image.network(account.headerStatic),
-                  animationsEnabled
-                      ? Image.network(account.avatar)
-                      : Image.network(account.avatarStatic),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: 300, //100,
+                    child: animationsEnabled
+                        ? Image.network(
+                            account.header,
+                          )
+                        : Image.network(
+                            account.headerStatic,
+                          ),
+                  ),
+
+                  roundAvatar
+                      ? ClipOval(
+                          child: animationsEnabled
+                              ? Image.network(
+                                  account.avatar,
+                                  width: 128,
+                                  height: 128,
+                                )
+                              : Image.network(
+                                  account.avatarStatic,
+                                  width: 128,
+                                  height: 128,
+                                ),
+                        )
+                      : animationsEnabled
+                          ? Image.network(
+                              account.avatar,
+                              width: 128,
+                              height: 128,
+                            )
+                          : Image.network(
+                              account.avatarStatic,
+                              width: 128,
+                              height: 128,
+                            ),
                   Text(
                     account.username,
                     style: tagStyle,
@@ -61,20 +94,26 @@ class _AccountPropertiesWidgetState extends State<AccountPropertiesWidget> {
                     account.displayName,
                     style: tagStyle,
                   ),
-
                   account.acct != account.username
                       ? Text(
                           account.acct,
                           style: tagStyle,
                         )
-                      : Text(''),
+                      : Container(),
                   Text(
                     account.note,
                     style: tagStyle,
                   ),
-                  Text('${account.followersCount} followers'),
-                  Text('${account.followingCount} followings'),
-                  Text('${account.statusesCount} statuses'),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text('${account.followersCount} followers, '),
+                      Text('${account.followingCount} followings, '),
+                      Text('${account.statusesCount} statuses'),
+                    ],
+                  ),
+
                   Column(
                     children: account.fields.map((entry) {
                       return Container(
@@ -104,7 +143,15 @@ class _AccountPropertiesWidgetState extends State<AccountPropertiesWidget> {
                   ),
 
                   Text(
-                      'Created at: ${account.createdAt.month}/${account.createdAt.day}/${account.createdAt.year}')
+                      'Created at: ${account.createdAt.month}/${account.createdAt.day}/${account.createdAt.year}'),
+
+                  account.isLocked ?? false ? Icon(Icons.lock) : Container(),
+                  account.isBot ?? false
+                      ? Icon(Icons.settings_suggest)
+                      : Container(),
+                  // account.isLocked!=null
+                  //     ? account!.isLocked?const Icon(Icons.settings_suggest):Null
+                  //     : Null,
 
                   //@JsonKey(name: 'locked') bool? isLocked,
                   //@JsonKey(name: 'bot') bool? isBot,
@@ -114,7 +161,7 @@ class _AccountPropertiesWidgetState extends State<AccountPropertiesWidget> {
                 ],
               ),
             ),
-          );
+          ));
         } else if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else {

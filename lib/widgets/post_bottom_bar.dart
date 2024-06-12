@@ -1,6 +1,7 @@
 import 'package:aadj/widgets/buttons/bookmark_button.dart';
 import 'package:aadj/widgets/buttons/favorite_button.dart';
 import 'package:aadj/core/globals.dart';
+import 'package:aadj/widgets/buttons/menu_button.dart';
 import 'package:aadj/widgets/buttons/reblog_button.dart';
 import 'package:aadj/widgets/buttons/reply_button.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +41,12 @@ class _PostBottomBarState extends State<PostBottomBar> {
             mastodon: mstdn,
             statusId: widget.statusId,
             isBookmarked: widget.isBookmarked),
+        MenuButton(
+          mastodon: mstdn,
+          statusId: widget.statusId,
+          isMuted: null,
+          isBlocked: null,
+        ),
         //todo additional menu
         //const Icon(Icons.menu_rounded),
       ],
