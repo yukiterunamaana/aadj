@@ -11,5 +11,5 @@ import 'widgets/bottom_navigation_bar.dart';
 void main() {
   runApp(const MaterialApp(
       home:
-          MyApp())); //AuthPage AppBottomBar MyApp AccountPropertiesWidget(accountId: myAccount)
+          AuthPage())); //AuthPage AppBottomBar MyApp AccountPropertiesWidget(accountId: myAccount)
 }
