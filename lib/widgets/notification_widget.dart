@@ -29,7 +29,7 @@ class _NotificationWidgetState extends State<NotificationWidget> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.notificationData.status);
+    //print(widget.notificationData.status);
 
     return Padding(
       padding: const EdgeInsets.all(15),
@@ -73,78 +73,12 @@ class _NotificationWidgetState extends State<NotificationWidget> {
                     widget.notificationData.status != null
                         ? StatusWidget(
                             statusId: widget.notificationData.status!.id)
-                        : const SizedBox(height: 0),
+                        : Container(),
                   ],
                 ),
               ),
-            )
-
-            /*FutureBuilder<mastodon.Notification>(
-            future: _futureNotification,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                mastodon.Notification notification = snapshot.data!;
-                return SizedBox(
-                  height: MediaQuery.of(context).size.height,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          notification.account.displayName,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),
-                        ),
-                        Text(
-                          notification.type as String,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),
-                        ),
-                        Text(
-                          notification.createdAt as String,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        notification.status != null
-                            ? const StatusWidget(
-                                statusId: 'notification.status.id')
-                            : const SizedBox(height: 0),
-                      ],
-                    ),
-                  ),
-                );
-              } else if (snapshot.hasError) {
-                return Text('Error: ${snapshot.error}');
-              } else {
-                return const Center(child: CircularProgressIndicator());
-              }
-            },
-          ),*/
-            ),
+            )),
       ),
     );
   }
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   return ListTile(
-  //     leading: CircleAvatar(
-  //       backgroundImage: NetworkImage(notificationData.account.avatar),
-  //     ),
-  //     title: Text(notification.account.displayName),
-  //     subtitle: Text(notification.summary),
-  //     trailing: Text(
-  //       '${notification.createdAt.difference(DateTime.now()).inMinutes} min ago',
-  //       style: TextStyle(color: Colors.grey),
-  //     ),
-  //   );
-  // }
 }
