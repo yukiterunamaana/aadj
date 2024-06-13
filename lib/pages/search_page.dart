@@ -1,5 +1,6 @@
 import 'package:aadj/core/globals.dart';
 import 'package:aadj/pages/query_page.dart';
+import 'package:aadj/pages/search_feeds/news_feed.dart';
 import 'package:aadj/pages/search_feeds/public_feed.dart';
 import 'package:flutter/material.dart';
 
@@ -108,7 +109,7 @@ class _SearchWithTabsState extends State<SearchWithTabs>
               PublicFeedWidget(),
               Center(child: Text('Hashtags')),
               Center(child: Text('People')),
-              Center(child: Text('News')),
+              NewsFeedWidget(),
             ],
           ),
         ),
