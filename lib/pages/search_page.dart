@@ -1,7 +1,7 @@
 import 'package:aadj/core/globals.dart';
 import 'package:aadj/pages/query_page.dart';
 import 'package:aadj/pages/search_feeds/news_feed.dart';
-import 'package:aadj/pages/search_feeds/public_feed.dart';
+import 'package:aadj/pages/search_feeds/public_feeds_aggregator.dart';
 import 'package:flutter/material.dart';
 
 class SearchWithTabs extends StatefulWidget {
@@ -42,31 +42,28 @@ class _SearchWithTabsState extends State<SearchWithTabs>
           padding: EdgeInsets.symmetric(horizontal: 16),
           height: 48,
           child:
-
-              /*
-                  TextFormField(
-          controller: _statusController,
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-          ),
-          validator: (value) {
-            if (value!.isEmpty) {
-              return 'Please enter a query first';
-            }
-            return null;
-          },
-          onSubmitted: (text) async {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => QueryPageWidget(
-                      query: text,
-                    ),
-                  ),
-                );
-              },
-        ),
-          * */
+              //           TextFormField(
+              //   controller: _statusController,
+              //   decoration: InputDecoration(
+              //     border: OutlineInputBorder(),
+              //   ),
+              //   validator: (value) {
+              //     if (value!.isEmpty) {
+              //       return 'Please enter a query first';
+              //     }
+              //     return null;
+              //   },
+              //   onSubmitted: (text) async {
+              //         Navigator.push(
+              //           context,
+              //           MaterialPageRoute(
+              //             builder: (context) => QueryPageWidget(
+              //               query: text,
+              //             ),
+              //           ),
+              //         );
+              //       },
+              // ),
               TextField(
                   controller: _queryController,
                   decoration: InputDecoration(
@@ -106,7 +103,7 @@ class _SearchWithTabsState extends State<SearchWithTabs>
             controller: _tabController,
             children: [
               // todo Replace these with the actual content for each tab
-              PublicFeedWidget(),
+              PublicFeedAggregatorWidget(),
               Center(child: Text('Hashtags')),
               Center(child: Text('People')),
               NewsFeedWidget(),
