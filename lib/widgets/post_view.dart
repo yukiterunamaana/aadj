@@ -1,4 +1,5 @@
 import 'package:aadj/core/globals.dart';
+import 'package:aadj/widgets/content_warning.dart';
 import 'package:aadj/widgets/post_bottom_bar.dart';
 import 'package:aadj/widgets/post_thread_view.dart';
 import 'package:flutter/material.dart';
@@ -44,18 +45,21 @@ class _StatusWidgetState extends State<StatusWidget> {
           borderRadius: BorderRadius.all(Radius.circular(15)),
           color: Colors.amber,
         ),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: FutureBuilder<Status>(
-                future: _futureStatus,
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    Status status = snapshot.data!;
-                    return SizedBox(
-                      height: MediaQuery.of(context).size.height,
-                      child: Padding(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: FutureBuilder<Status>(
+            future: _futureStatus,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                Status status = snapshot.data!;
+                return SizedBox(
+                  height: MediaQuery.of(context).size.height,
+                  child: Stack(
+                    children: [
+                      status.spoilerText != ''
+                          ? ContentWarning(text: status.spoilerText)
+                          : Container(),
+                      Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -110,17 +114,17 @@ class _StatusWidgetState extends State<StatusWidget> {
                                 isBookmarked: status.isBookmarked),
                           ],
                         ),
-                      ),
-                    );
-                  } else if (snapshot.hasError) {
-                    return Text('Error: ${snapshot.error}');
-                  } else {
-                    return Center(child: CircularProgressIndicator());
-                  }
-                },
-              ),
-            ),
-          ],
+                      )
+                    ],
+                  ),
+                );
+              } else if (snapshot.hasError) {
+                return Text('Error: ${snapshot.error}');
+              } else {
+                return Center(child: CircularProgressIndicator());
+              }
+            },
+          ),
         ),
       ),
     );
