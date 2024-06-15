@@ -17,6 +17,13 @@ class QueryPageWidget extends StatefulWidget {
 class QueryPageWidgetState extends State<QueryPageWidget> {
   final PagingController<int, FeedStatusWidget> pagingController =
       PagingController(firstPageKey: 1);
+  // static const List<Tab> _tabs = [
+  //   Tab(text: 'All'), column view
+  //   Tab(text: 'Accounts'),
+  //   Tab(text: 'Hashtags'),
+  //   Tab(text: 'Statuses'),
+  // ];
+  // late TabController _tabController;
 
   @override
   void initState() {
