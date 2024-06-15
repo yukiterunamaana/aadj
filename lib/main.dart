@@ -11,7 +11,6 @@ import 'widgets/bottom_navigation_bar.dart';
 
 void main() {
   runApp(const MaterialApp(
-      home: StatusWidget(
-    statusId: '112497942836430426',
-  ))); //AuthPage AppBottomBar MyApp AccountPropertiesWidget(accountId: myAccount)
+      home:
+          AuthPage())); //AuthPage AppBottomBar MyApp AccountPropertiesWidget(accountId: myAccount)
 }
